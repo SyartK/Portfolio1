@@ -1,3 +1,4 @@
+
 * {
   padding: 0;
   margin: 0;
@@ -57,16 +58,30 @@ nav {
 }
 
 .btn {
-  padding: 0.5rem 1.5rem;
-  background-color: #1d4ed8;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
   color: #fff;
+  background-color: #007bff;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
+
 .btn:hover {
-  background-color: #1e40af;
+  background-color: #0056b3;
+  transform: scale(1.05);
+ }
+
+
+.btn-download {
+  background-color: #28a745; 
+}
+
+.btn-download:hover {
+  background-color: #218838; 
 }
 
 .container {
@@ -131,23 +146,26 @@ header .image img {
 
 .features {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 2rem;
+  flex-wrap: wrap;
+  gap: 2rem; 
   justify-content: center;
 }
 
 .card {
   background-color: #27272a;
-  padding: 0.7rem;
+  padding: 1rem;
   border-radius: 10px;
   text-align: center;
   transition: background-color 0.3s, transform 0.3s;
   color: #fff;
+  flex: 1 1 calc(33.333% - 2rem); 
+  max-width: calc(33.333% - 2rem); 
+  box-sizing: border-box;
 }
 
 .card:hover {
   background-color: #323232;
-  transform: translateY(-10px);
+  transform: translateY(-5px); 
 }
 
 .card span {
@@ -169,6 +187,7 @@ header .image img {
 
 .card img {
   max-width: 100%;
+  height: auto; 
   border-radius: 10px;
   margin-bottom: 1rem;
 }
@@ -176,6 +195,7 @@ header .image img {
 .card a {
   color: #1d4ed8;
   transition: color 0.3s;
+  text-decoration: none; 
 }
 
 .card a:hover {
@@ -239,7 +259,19 @@ footer .logo img {
   color: #ccc;
 }
 
+@media (max-width: 1200px) {
+  .card {
+    flex: 1 1 calc(50% - 2rem); 
+    max-width: calc(50% - 2rem); 
+  }
+}
+
 @media (max-width: 900px) {
+  .card {
+    flex: 1 1 100%; 
+    max-width: 100%; 
+  }
+
   .nav-links {
     display: none;
   }
@@ -257,3 +289,30 @@ footer .logo img {
     flex-direction: column;
   }
 }
+.button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-more {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #1d4ed8;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  transition: transform 0.3s, background-color 0.3s; 
+}
+
+.view-more:hover {
+  background-color: #1e40af;
+  transform: scale(1.1); 
+}
+
+
+
+
