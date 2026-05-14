@@ -1,5 +1,5 @@
 var typed = new Typed(".multiple", {
-  strings: ["Web Developer", "Front-End Developer"],
+  strings: ["Full-Stack Engineer", "Laravel Developer", "PHP Developer"],
   typeSpeed: 100,
   backSpeed: 100,
   backDelay: 1000,

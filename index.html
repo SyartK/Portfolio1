@@ -1,181 +1,1107 @@
+<!doctype html>
+<html lang="en" data-theme="graphite" data-accent="lime">
 <head>
-    <meta charset="UTF-8">
-    <title>My Resume</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="website icon" type="PNG"
-    href="./images/logo.PNG">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </head>
-  
-  <body>
+<meta charset="utf-8">
+<title>Syart Kamberi — Full-Stack Developer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="images/me.png">
+<link rel="stylesheet" href="styles/tokens.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+  /* ----- page reset / scaffold ----- */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--body); }
 
-     <nav>
-        <div class="nav-logo">
-            <a href="#">
-                <img src="./images/logo.PNG" alt="Logo">
-            </a>
-        </div>
-        <ul class="nav-links">
-          <li class="link"><a href="#education">Education</a></li>
-          <li class="link"><a href="#work-experience">Work Experience</a></li>
-          <li class="link"><a href="#skills">Skills</a></li>
-        </ul>
-    </nav>
-    <header class="container">
-        <div class="content">
-            <h4>Passionate Web Developer</h4>
-            <H1>Hi, I'm <span>Syart Kamberi</span></H1>
-            <h5>And I'm a <span class="multiple"></span></h4>
-            <p>
-                Hey there, I'm Syart Kamberi, a 17-year-old resident of the town of Presevo. Web development is my passion, and I'm on a mission to soak up as much programming knowledge as I can.
-            </p>
-            <a class="btn" href="assets/CV.pdf" download="CV.pdf" class="btn btn-primary">Download my CV</a>
-  
-        </div>
-        <div class="image">
-            <img src="./images/ME.PNG" alt="Photo of Me">
-        </div>
-    </header>
-  
+  ::selection { background: var(--accent); color: #fff; }
+  [data-theme="graphite"] ::selection { background: var(--accent); color: var(--bg); }
 
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
 
-     <section class="container" id="education">
-        <div data-aos="zoom-in">
-        <h2 class="header">EDUCATION</h2>
-        <div class="features">
-            <div class="card">
-                <span><i class="ri-book-line"></i></span>
-                <h4>Gjimnazi "Skenderbeu"-Preshevë</h4>
-                <p>2022-Present</p>
-            </div>
-        </div>
+  /* lucide icons */
+  [data-lucide] { width: 18px; height: 18px; stroke-width: 1.75; }
+
+  /* ----- layout primitives ----- */
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--sp-8);
+  }
+  @media (max-width: 700px) { .page { padding: 0 var(--sp-5); } }
+
+  /* hairline grid backdrop (subtle) */
+  .grid-bg {
+    background-image: radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0);
+    background-size: 16px 16px;
+    background-position: 0 0;
+  }
+
+  /* ----- top nav ----- */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.top .row {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: var(--sp-3);
+    text-decoration: none;
+  }
+  .brand .mark {
+    width: 28px; height: 28px;
+    border: 1px solid var(--fg);
+    border-radius: var(--r-sm);
+    display: grid; place-items: center;
+    font-family: var(--font-mono); font-weight: 600;
+    font-size: 13px;
+    color: var(--fg);
+    background: var(--surface);
+  }
+  .brand .name {
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm); font-weight: 600;
+    color: var(--fg); letter-spacing: 0;
+  }
+  .brand .ver {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs); color: var(--muted);
+    padding: 2px 6px; border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+  }
+  nav.top ul {
+    display: flex; align-items: center; gap: var(--sp-6);
+    list-style: none; margin: 0; padding: 0;
+  }
+  nav.top ul a {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs); font-weight: 500;
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+    transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  }
+  nav.top ul a:hover { color: var(--fg); border-bottom-color: var(--accent); }
+  nav.top .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+  nav.top .status .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--good);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--good) 18%, transparent);
+  }
+  @media (max-width: 760px) { nav.top ul, nav.top .status { display: none; } }
+
+  /* ----- hero ----- */
+  .hero { padding: var(--sp-20) 0 var(--sp-16); }
+  .hero .cols {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--sp-16);
+    align-items: end;
+  }
+  @media (max-width: 900px) { .hero .cols { grid-template-columns: 1fr; gap: var(--sp-10); align-items: start; } }
+  .hero .eyebrow {
+    display: inline-flex; gap: 10px; align-items: center;
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--muted);
+    margin-bottom: var(--sp-6);
+  }
+  .hero .eyebrow .pip {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
+  }
+  .hero h1 {
+    font-size: clamp(48px, 8vw, var(--fs-hero));
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+    font-weight: 700;
+    margin: 0 0 var(--sp-6);
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero h1 .outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--fg);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .hero .lede {
+    font-size: var(--fs-lg);
+    color: var(--body);
+    max-width: 52ch;
+    line-height: 1.45;
+    margin-bottom: var(--sp-8);
+    text-wrap: pretty;
+  }
+  .hero .cta-row {
+    display: flex; gap: var(--sp-3); flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px;
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm); font-weight: 500;
+    text-decoration: none;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    color: var(--fg);
+    cursor: pointer;
+    transition: all var(--dur-fast) var(--ease);
+  }
+  .btn:hover { background: var(--sunken); border-color: var(--fg); }
+  .btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  [data-theme="graphite"] .btn.primary { color: var(--bg); }
+  .btn.primary:hover { background: var(--accent-hi); border-color: var(--accent-hi); }
+  .btn.primary:active { background: var(--accent-lo); }
+  .btn [data-lucide] { width: 16px; height: 16px; }
+
+  /* hero photo */
+  .hero .photo {
+    position: relative;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--sunken);
+    aspect-ratio: 4 / 5;
+  }
+  .hero .photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(0.92) contrast(1.02);
+  }
+  .hero .photo .corner {
+    position: absolute; left: 12px; bottom: 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    padding: 8px 10px;
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    color: var(--fg);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero .photo .corner .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+
+  /* ----- metric strip ----- */
+  .metric-strip {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .metric-strip .cell {
+    padding: var(--sp-6) var(--sp-6);
+    border-right: 1px solid var(--line);
+  }
+  .metric-strip .cell:last-child { border-right: 0; }
+  .metric-strip .label {
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--muted);
+    margin-bottom: var(--sp-2);
+  }
+  .metric-strip .val {
+    font-family: var(--font-mono);
+    font-size: var(--fs-2xl);
+    color: var(--fg);
+    font-weight: 500;
+    font-feature-settings: "tnum", "zero";
+    letter-spacing: -0.01em;
+  }
+  .metric-strip .val .unit {
+    font-size: 0.55em; color: var(--muted); margin-left: 4px;
+  }
+  @media (max-width: 800px) {
+    .metric-strip { grid-template-columns: repeat(2, 1fr); }
+    .metric-strip .cell:nth-child(2) { border-right: 0; }
+    .metric-strip .cell:nth-child(1), .metric-strip .cell:nth-child(2) { border-bottom: 1px solid var(--line); }
+  }
+
+  /* ----- section header ----- */
+  section.panel { padding: var(--sp-20) 0; border-top: 1px solid var(--line); }
+  section.panel:first-of-type { border-top: 0; }
+  .sec-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--sp-8);
+    margin-bottom: var(--sp-12);
+    align-items: start;
+  }
+  .sec-head .num {
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    color: var(--muted);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    padding-top: 8px;
+  }
+  .sec-head h2 {
+    font-size: var(--fs-3xl);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--fg);
+  }
+  .sec-head .sub {
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    color: var(--muted);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    padding-top: 12px;
+  }
+  .sec-head h2 + p { margin-top: var(--sp-3); color: var(--muted); max-width: 56ch; }
+  @media (max-width: 700px) {
+    .sec-head { grid-template-columns: 1fr; gap: var(--sp-3); margin-bottom: var(--sp-8); }
+  }
+
+  /* ----- skills scorecard ----- */
+  .scorecard {
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .scorecard .head {
+    display: grid;
+    grid-template-columns: 60px 1fr 120px 200px;
+    gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-5);
+    background: var(--sunken);
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--muted);
+  }
+  .scorecard .row {
+    display: grid;
+    grid-template-columns: 60px 1fr 120px 200px;
+    gap: var(--sp-4);
+    padding: var(--sp-4) var(--sp-5);
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+    transition: background var(--dur-fast) var(--ease);
+  }
+  .scorecard .row:last-child { border-bottom: 0; }
+  .scorecard .row:hover { background: var(--sunken); }
+  .scorecard .idx {
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+  .scorecard .skill {
+    font-family: var(--font-sans); font-weight: 500;
+    color: var(--fg);
+    font-size: var(--fs-md);
+  }
+  .scorecard .score-val {
+    font-family: var(--font-mono);
+    font-size: var(--fs-md); color: var(--fg);
+    font-feature-settings: "tnum";
+  }
+  .scorecard .score-val .max { color: var(--muted); }
+  .scorecard .bar {
+    height: 6px;
+    background: var(--sunken);
+    border-radius: var(--r-pill);
+    overflow: hidden;
+    position: relative;
+  }
+  .scorecard .bar .fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: var(--r-pill);
+    transition: width var(--dur-slow) var(--ease);
+  }
+  @media (max-width: 700px) {
+    .scorecard .head { display: none; }
+    .scorecard .row { grid-template-columns: 40px 1fr 70px; gap: var(--sp-3); padding: var(--sp-3); }
+    .scorecard .bar { grid-column: 1 / -1; margin-top: 4px; }
+  }
+
+  /* ----- projects ----- */
+  .filters {
+    display: flex; gap: var(--sp-2); flex-wrap: wrap;
+    margin-bottom: var(--sp-6);
+  }
+  .chip {
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    color: var(--muted);
+    background: transparent;
+    cursor: pointer;
+    transition: all var(--dur-fast) var(--ease);
+  }
+  .chip:hover { color: var(--fg); border-color: var(--line-strong); }
+  .chip.active {
+    background: var(--fg); color: var(--bg); border-color: var(--fg);
+  }
+  .chip .count { color: var(--muted); margin-left: 6px; opacity: 0.7; }
+  .chip.active .count { color: var(--bg); opacity: 0.5; }
+
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-5);
+  }
+  @media (max-width: 1000px) { .proj-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .proj-grid { grid-template-columns: 1fr; } }
+
+  .proj {
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--dur-base) var(--ease);
+    position: relative;
+  }
+  .proj:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-2px);
+  }
+  .proj .shot {
+    aspect-ratio: 16 / 10;
+    background: var(--sunken);
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .proj .shot img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform var(--dur-slow) var(--ease);
+  }
+  .proj .shot.logo-shot {
+    display: grid;
+    place-items: center;
+    padding: var(--sp-10);
+  }
+  .proj .shot.logo-shot img {
+    width: min(150px, 45%);
+    height: auto;
+    object-fit: contain;
+  }
+  .proj:hover .shot img { transform: scale(1.04); }
+  .proj .body {
+    padding: var(--sp-4) var(--sp-5) var(--sp-5);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .proj .meta-row {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--muted);
+  }
+  .proj .meta-row .tag { color: var(--muted); }
+  .proj h4 {
+    font-size: var(--fs-md); color: var(--fg); font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .proj .open {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--accent);
+  }
+  .proj .open [data-lucide] { width: 12px; height: 12px; }
+
+  /* ----- experience / education ----- */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-12);
+  }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; gap: var(--sp-10); } }
+  .col-head {
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--muted);
+    padding-bottom: var(--sp-3);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: var(--sp-5);
+    display: flex; justify-content: space-between;
+  }
+  .entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--sp-4);
+    padding: var(--sp-5) 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .entry:last-child { border-bottom: 0; }
+  .entry .where {
+    color: var(--fg);
+    font-size: var(--fs-md);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 0 0 4px;
+  }
+  .entry .role {
+    color: var(--muted);
+    font-size: var(--fs-sm);
+  }
+  .entry .date {
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    color: var(--muted);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    white-space: nowrap;
+  }
+
+  /* ----- about ----- */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-12);
+    align-items: start;
+  }
+  @media (max-width: 900px) { .about { grid-template-columns: 1fr; gap: var(--sp-8); } }
+  .about p {
+    font-size: var(--fs-lg);
+    line-height: 1.55;
+    color: var(--body);
+    text-wrap: pretty;
+  }
+  .about p + p { margin-top: var(--sp-4); }
+  .pull {
+    border-left: 2px solid var(--accent);
+    padding: var(--sp-2) var(--sp-5);
+    font-family: var(--font-mono);
+    font-size: var(--fs-sm);
+    color: var(--fg);
+    background: var(--sunken);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  }
+
+  /* hobbies row */
+  .hobbies {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .hobbies .h-cell {
+    padding: var(--sp-5);
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: var(--sp-2);
+  }
+  .hobbies .h-cell:last-child { border-right: 0; }
+  .hobbies .h-cell [data-lucide] {
+    width: 20px; height: 20px;
+    color: var(--accent);
+  }
+  .hobbies .h-cell .name {
+    font-size: var(--fs-md);
+    color: var(--fg); font-weight: 600;
+    margin-top: var(--sp-2);
+  }
+  .hobbies .h-cell .desc {
+    font-size: var(--fs-sm);
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  @media (max-width: 900px) { .hobbies { grid-template-columns: 1fr 1fr; } .hobbies .h-cell:nth-child(2n) { border-right: 0; } .hobbies .h-cell { border-bottom: 1px solid var(--line); } .hobbies .h-cell:nth-last-child(-n+2):not(:last-child:nth-child(2n)) { border-bottom: 0; } .hobbies .h-cell:last-child { border-bottom: 0; } }
+  @media (max-width: 500px) { .hobbies { grid-template-columns: 1fr; } .hobbies .h-cell { border-right: 0; border-bottom: 1px solid var(--line); } .hobbies .h-cell:last-child { border-bottom: 0; } }
+
+  /* ----- contact ----- */
+  .contact {
+    padding: var(--sp-20) 0 var(--sp-12);
+    border-top: 1px solid var(--line);
+    text-align: left;
+  }
+  .contact h2 {
+    font-size: clamp(40px, 6vw, 72px);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    max-width: 14ch;
+    margin-bottom: var(--sp-8);
+  }
+  .contact h2 a { text-decoration: none; }
+  .contact h2 a:hover { color: var(--accent); }
+  .contact .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-5);
+    margin-bottom: var(--sp-12);
+  }
+  @media (max-width: 700px) { .contact .grid { grid-template-columns: repeat(2, 1fr); } }
+  .contact .grid .item {
+    border-top: 1px solid var(--line-strong);
+    padding-top: var(--sp-3);
+  }
+  .contact .grid .label {
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--muted);
+    margin-bottom: var(--sp-2);
+  }
+  .contact .grid a {
+    color: var(--fg);
+    font-size: var(--fs-md);
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .contact .grid a:hover { color: var(--accent); }
+  .contact .grid a [data-lucide] { width: 12px; height: 12px; }
+
+  footer.foot {
+    border-top: 1px solid var(--line);
+    padding: var(--sp-6) 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-mono); font-size: var(--fs-xs);
+    text-transform: uppercase; letter-spacing: var(--tr-label);
+    color: var(--muted);
+  }
+  footer.foot .right { display: flex; gap: var(--sp-5); }
+  @media (max-width: 600px) {
+    footer.foot { flex-direction: column; gap: var(--sp-3); }
+  }
+
+  /* number flip-in on load */
+  @keyframes count-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .metric-strip .val, .scorecard .row { animation: count-in 400ms var(--ease-out) both; }
+  .scorecard .row:nth-child(2) { animation-delay: 40ms; }
+  .scorecard .row:nth-child(3) { animation-delay: 80ms; }
+  .scorecard .row:nth-child(4) { animation-delay: 120ms; }
+  .scorecard .row:nth-child(5) { animation-delay: 160ms; }
+  .scorecard .row:nth-child(6) { animation-delay: 200ms; }
+  .scorecard .row:nth-child(7) { animation-delay: 240ms; }
+  .scorecard .row:nth-child(8) { animation-delay: 280ms; }
+  .scorecard .row:nth-child(9) { animation-delay: 320ms; }
+  .scorecard .row:nth-child(10) { animation-delay: 360ms; }
+
+  /* accent customization */
+  [data-accent="amber"][data-theme="ink"] { --accent: #E85B1A; --accent-hi: #FF7432; --accent-lo: #C94A10; }
+  [data-accent="cobalt"][data-theme="ink"] { --accent: #2E5AAC; --accent-hi: #3D6EC6; --accent-lo: #244A8C; }
+  [data-accent="moss"][data-theme="ink"]   { --accent: #2E7D4F; --accent-hi: #3A9560; --accent-lo: #245F3D; }
+  [data-accent="crimson"][data-theme="ink"]{ --accent: #C23A2A; --accent-hi: #DA4838; --accent-lo: #9E2E21; }
+
+  [data-accent="lime"][data-theme="graphite"]   { --accent: #C6F24E; --accent-hi: #D7FF5C; --accent-lo: #A6CE3B; }
+  [data-accent="cyan"][data-theme="graphite"]   { --accent: #5EE0E5; --accent-hi: #76EEF4; --accent-lo: #45BABF; }
+  [data-accent="amber"][data-theme="graphite"]  { --accent: #FF8A4B; --accent-hi: #FFA372; --accent-lo: #D86A30; }
+  [data-accent="violet"][data-theme="graphite"] { --accent: #B07BFF; --accent-hi: #C49AFF; --accent-lo: #8E5DD8; }
+
+</style>
+</head>
+<body class="grid-bg">
+
+<nav class="top">
+  <div class="page row">
+    <a class="brand" href="#top">
+      <span class="mark">SK</span>
+      <span class="name">syart-kamberi</span>
+      <span class="ver">v3.0</span>
+    </a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="status">
+      <span class="dot"></span><span>Open to projects</span>
     </div>
-    </section>
+  </div>
+</nav>
 
-  
-    <section class="container" id="work-experience">
-        <h2 class="header">WORK EXPERIENCE</h2>
-        <div class="features">
-            <div class="card">
-                <span><i class="ri-briefcase-line"></i></span>
-                <h4>Golden Eye</h4>
-                <p>December 2018 - August 2021</p>
-            </div>
-            <div class="card">
-                <span><i class="ri-restaurant-line"></i></span>
-                <h4>Hot Pizza</h4>
-                <p>August 2021 - August 2023</p>
-            </div>
+<main id="top" class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="cols">
+      <div>
+        <div class="eyebrow">
+          <span class="pip"></span>
+          <span>PORTFOLIO · 2022 – 2026 · INDEX</span>
         </div>
-    </section>
-  
-    <section class="container" id="skills">
-        <h2 class="header">SKILLS</h2>
-        <div class="features">
-            <div class="card">
-                <span><i class="ri-code-s-slash-line"></i></span>
-                <h4>HTML</h4>
-                <p>⭐⭐⭐⭐⭐</p>
-            </div>
-            <div class="card">
-                <span><i class="ri-css3-line"></i></span>
-                <h4>CSS</h4>
-                <p>⭐⭐⭐⭐</p>
-            </div>
-            <div class="card">
-                <span><i class="ri-css3-line"></i></span>
-                <h4>Tailwindcss</h4>
-                <p>⭐⭐⭐⭐</p>
-            </div>
-            <div class="card">
-                <span><i class="ri-code-line"></i></span>
-                <h4>JavaScript</h4>
-                <p>⭐⭐⭐⭐</p>
-            </div>
-            <div class="card">
-              <span><i class="ri-code-line"></i></span>
-              <h4>Node.js</Node></h4>
-              <p>⭐⭐⭐⭐</p>
-          </div>
-          <div class="card">
-              <span><i class="ri-code-line"></i></span>
-              <h4>Express.js</h4>
-              <p>⭐⭐⭐⭐</p>
-          </div>
-          <div class="card">
-              <span><i class="ri-code-line"></i></span>
-              <h4>EJS</h4>
-              <p>⭐⭐⭐</p>
-          </div><div class="card">
-              <span><i class="ri-code-line"></i></span>
-              <h4>Webflow</h4>
-              <p>⭐⭐⭐⭐</p>
-          </div>
-          
-            <div class="card">
-              <span><i class="ri-code-line"></i></span>
-              <h4>Java</h4>
-              <p>⭐⭐</p>
-          </div>
+        <h1>
+          Syart<br>
+          Kamberi<span class="accent">.</span>
+        </h1>
+        <p class="lede">
+          Full-stack developer based in Preševo. I build clean, fast, and accessible products across PHP, Laravel, Livewire, JavaScript, and modern front-end stacks.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="assets/CV.pdf" download="Syart-Kamberi-CV.pdf">
+            <i data-lucide="download"></i>
+            Download CV
+          </a>
+          <a class="btn" href="#work">
+            <i data-lucide="arrow-down"></i>
+            View work
+          </a>
+          <a class="btn" href="mailto:kamberisyart47@gmail.com">
+            <i data-lucide="mail"></i>
+            Get in touch
+          </a>
         </div>
-    </section>
-  
-  <!-- Portfolio Section -->
-  <section class="container">
-      <h2 class="header">MY PREVIOUS WORK</h2>
-      <div class="features">
-          <div class="card">
-              <img src="./images/calendar.PNG" alt="Calendar for space travel">
-              <h4>Calendar for space travel</h4>
-              <a href="https://calendarapp1.webflow.io/" target="_blank">View</a>
-          </div>
-          <div class="card">
-              <img src="./images/TINDOG.PNG" alt="Tindog Project">
-              <h4>A Tinder Website for Dogs</h4>
-              <a href="https://syartk.github.io/Tindog/" target="_blank">View</a>
-          </div>
-          <div class="card">
-              <img src="./images/SimonGamee.PNG" alt="Simon Game">
-              <h4>Simon Game</h4>
-              <a href="https://syartk.github.io/SimonGame/" target="_blank">View</a>
-          </div>
       </div>
-     <div class="button-container">
-      <a class="btn view-more" href="index2.html">View More</a>
-     </div>
-  </section>
-  </section>
-    <footer class="container">
-        <div class="column">
-            <p>Connect with me on social media!</p>
-            <div class="socials">
-                <a href="https://twitter.com/ItsSyart"><i class="ri-twitter-line"></i></a>
-                <a href="https://www.instagram.com/syartkamberi/?hl=en"><i class="ri-instagram-line"></i></a>
-                <a href="https://www.facebook.com/syart.kamberii/"><i class="ri-facebook-line"></i></a>
-                <a href="https://github.com/SyartK"><i class="ri-github-line"></i></a>
-            </div>
+      <div class="photo">
+        <img src="images/me.png" alt="Syart Kamberi">
+        <div class="corner">
+          <span class="dot"></span>
+          <span>SK · 19 · Preševo</span>
         </div>
-        <div class="column">
-            <h4>My Hobbies</h4>
-            <a href="./public/Hobbies.html">Learn More</a>
-        </div>
-        <div class="column">
-            <h4>Contact</h4>
-            <a href="mailto:kamberisyart47@gmail.com">Email Me</a>
-        </div>
-    </footer>
-  
-    <div class="copyright">
-        &copy; Syart Kamberi, 2024. All Rights Reserved.
+      </div>
     </div>
-  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-  <script src="index.js"></script>
-  </body>
+  </section>
 
-  </html>
+  <!-- METRIC STRIP -->
+  <div class="metric-strip">
+    <div class="cell">
+      <div class="label">Projects shipped</div>
+      <div class="val">13<span class="unit">live</span></div>
+    </div>
+    <div class="cell">
+      <div class="label">Years coding</div>
+      <div class="val">04<span class="unit">yrs</span></div>
+    </div>
+    <div class="cell">
+      <div class="label">Core stack</div>
+      <div class="val">12<span class="unit">techs</span></div>
+    </div>
+    <div class="cell">
+      <div class="label">Languages spoken</div>
+      <div class="val">03<span class="unit">AL·EN·SR</span></div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section class="panel" id="work">
+    <div class="sec-head">
+      <div class="num">§ 01 / Work</div>
+      <div>
+        <h2>Selected projects.</h2>
+        <p>A mix of static sites, vanilla-JS games, and full-stack web apps. Each card opens the live build.</p>
+      </div>
+      <div class="sub">13 shipped<br>2022–2026</div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="chip active" data-filter="all">All <span class="count">13</span></button>
+      <button class="chip" data-filter="web">Web <span class="count">5</span></button>
+      <button class="chip" data-filter="js">JavaScript <span class="count">5</span></button>
+      <button class="chip" data-filter="fullstack">Full-stack <span class="count">3</span></button>
+    </div>
+
+    <div class="proj-grid" id="proj-grid">
+
+      <a class="proj" data-cat="web" href="https://calendarapp1.webflow.io/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/calendar.png" alt="Calendar for space travel"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-01 · Webflow</span><span>2024</span></div>
+          <h4>Calendar for space travel</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="web" href="https://syartk.github.io/Tindog/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/tindog.png" alt="Tindog"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-02 · Bootstrap</span><span>2023</span></div>
+          <h4>Tindog — Tinder for dogs</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="js" href="https://syartk.github.io/SimonGame/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/simon.png" alt="Simon Game"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-03 · JavaScript</span><span>2023</span></div>
+          <h4>Simon Game</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="js" href="https://syartk.github.io/DiceeGamee/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/dice.png" alt="Dice Game"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-04 · JavaScript</span><span>2023</span></div>
+          <h4>Dice Game</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="js" href="https://syartk.github.io/Calculator/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/calculator.png" alt="Calculator"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-05 · JavaScript</span><span>2024</span></div>
+          <h4>Calculator</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="js" href="https://syartk.github.io/DrumKit/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/drumkit.png" alt="Drum Kit"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-06 · JavaScript</span><span>2023</span></div>
+          <h4>Drum Kit</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="web" href="https://syartk.github.io/Pricing-Table/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/pricing.png" alt="Pricing Table"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-07 · HTML / CSS</span><span>2023</span></div>
+          <h4>Pricing Table</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="web" href="https://syartk.github.io/MondrianProject/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/mondrian.png" alt="Mondrian Project"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-08 · CSS Grid</span><span>2023</span></div>
+          <h4>Mondrian Project</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="fullstack" href="https://blogwebapp-60pu.onrender.com/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/blog.png" alt="Blog Web Application"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-09 · Node · Express</span><span>2024</span></div>
+          <h4>Blog Web Application</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="fullstack" href="https://imbored-4sam.onrender.com/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/bored.png" alt="I'm Bored"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-10 · Node · API</span><span>2024</span></div>
+          <h4>I'm Bored</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="web" href="https://syartk.github.io/Weather-Website/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/weather.png" alt="Weather Website"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-11 · API · JS</span><span>2024</span></div>
+          <h4>Weather Website</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="js" href="https://syartk.github.io/Typing-Speed-Test/" target="_blank" rel="noopener">
+        <div class="shot"><img src="images/typing.png" alt="Typing Speed Test"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-12 · JavaScript</span><span>2024</span></div>
+          <h4>Typing Speed Test</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+      <a class="proj" data-cat="fullstack" href="https://rrini.com/" target="_blank" rel="noopener">
+        <div class="shot logo-shot"><img src="images/rrini-mark.svg" alt="Rrini logo"></div>
+        <div class="body">
+          <div class="meta-row"><span class="tag">P-13 · Laravel · Inertia</span><span>2026</span></div>
+          <h4>Rrini.com</h4>
+          <div class="open">Open project <i data-lucide="arrow-up-right"></i></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="panel" id="skills">
+    <div class="sec-head">
+      <div class="num">§ 02 / Skills</div>
+      <div>
+        <h2>Stack &amp; proficiency.</h2>
+        <p>Self-rated on a 5-point scale, reviewed quarterly. The mono numbers tell you everything.</p>
+      </div>
+      <div class="sub">12 entries<br>scored / 5</div>
+    </div>
+
+    <div class="scorecard">
+      <div class="head">
+        <div>#</div>
+        <div>Technology</div>
+        <div>Score</div>
+        <div>Level</div>
+      </div>
+
+      <div class="row">
+        <div class="idx">01</div>
+        <div class="skill">HTML</div>
+        <div class="score-val">5.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 100%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">02</div>
+        <div class="skill">CSS</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">03</div>
+        <div class="skill">Tailwind CSS</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">04</div>
+        <div class="skill">JavaScript</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">05</div>
+        <div class="skill">PHP</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">06</div>
+        <div class="skill">Laravel</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">07</div>
+        <div class="skill">Livewire</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">08</div>
+        <div class="skill">MySQL</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">09</div>
+        <div class="skill">AWS</div>
+        <div class="score-val">3.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 60%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">10</div>
+        <div class="skill">Node.js</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">11</div>
+        <div class="skill">Webflow</div>
+        <div class="score-val">4.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 80%"></div></div>
+      </div>
+      <div class="row">
+        <div class="idx">12</div>
+        <div class="skill">Java</div>
+        <div class="score-val">2.0<span class="max"> / 5</span></div>
+        <div class="bar"><div class="fill" style="width: 40%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE / EDUCATION -->
+  <section class="panel" id="experience">
+    <div class="sec-head">
+      <div class="num">§ 03 / Record</div>
+      <div>
+        <h2>Experience &amp; education.</h2>
+        <p>Current engineering work, earlier jobs, and ongoing education.</p>
+      </div>
+      <div class="sub">2018 →<br>present</div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="col-head"><span>Work</span><span>03 entries</span></div>
+        <div class="entry">
+          <div>
+            <h4 class="where">Brigada.dev</h4>
+            <div class="role">Full-Stack Engineer · Laravel, Livewire, AWS</div>
+          </div>
+          <div class="date">Current</div>
+        </div>
+        <div class="entry">
+          <div>
+            <h4 class="where">Hot Pizza</h4>
+            <div class="role">Service · Preševo</div>
+          </div>
+          <div class="date">2021 — 2023</div>
+        </div>
+        <div class="entry">
+          <div>
+            <h4 class="where">Golden Eye</h4>
+            <div class="role">Service · Preševo</div>
+          </div>
+          <div class="date">2018 — 2021</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="col-head"><span>Education</span><span>01 entry</span></div>
+        <div class="entry">
+          <div>
+            <h4 class="where">Gjimnazi “Skenderbeu” — Preshevë</h4>
+            <div class="role">High school · General programme</div>
+          </div>
+          <div class="date">2022 — present</div>
+        </div>
+        <div class="entry">
+          <div>
+            <h4 class="where">Self-taught — web development</h4>
+            <div class="role">HTML, CSS, JavaScript, PHP, Laravel, Livewire · ongoing</div>
+          </div>
+          <div class="date">2022 — present</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="panel" id="about">
+    <div class="sec-head">
+      <div class="num">§ 04 / About</div>
+      <div>
+        <h2>Notes on the dev.</h2>
+        <p>Short version: 19, from Preševo, building full-stack products for the web.</p>
+      </div>
+      <div class="sub">readme.md</div>
+    </div>
+
+    <div class="about">
+      <div>
+        <p>
+          Hey, I'm Syart. I live in Preševo and build web products across the stack. My current focus is PHP, Laravel, Livewire, JavaScript, MySQL, AWS, Tailwind CSS, and clean interfaces that are easy to use.
+        </p>
+        <p>
+          I like building things that work the first time and look honest doing it. No fluff, no animation for animation's sake. Just measured, deliberate UI.
+        </p>
+      </div>
+      <div>
+        <div class="pull">
+          “Full-stack, focused, and shipping. I care about clean product work, reliable backends, and interfaces that feel simple.”
+        </div>
+        <p style="margin-top: var(--sp-6)">
+          Off-keyboard I play football, climb mountains, hoop, cook, and travel whenever I can. Same approach there — show up, focus, keep moving.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOBBIES -->
+  <section class="panel" id="hobbies">
+    <div class="sec-head">
+      <div class="num">§ 05 / Outside</div>
+      <div>
+        <h2>Off the keyboard.</h2>
+        <p>Five things I do when I'm not staring at a screen.</p>
+      </div>
+      <div class="sub">05 / 05</div>
+    </div>
+
+    <div class="hobbies">
+      <div class="h-cell">
+        <i data-lucide="goal"></i>
+        <div class="name">Football</div>
+        <div class="desc">More than a sport — a love that makes me feel alive.</div>
+      </div>
+      <div class="h-cell">
+        <i data-lucide="mountain"></i>
+        <div class="name">Mountain climbing</div>
+        <div class="desc">Favorite adventure. The harder the route, the better.</div>
+      </div>
+      <div class="h-cell">
+        <i data-lucide="circle-dot"></i>
+        <div class="name">Basketball</div>
+        <div class="desc">My second love on the court.</div>
+      </div>
+      <div class="h-cell">
+        <i data-lucide="chef-hat"></i>
+        <div class="name">Cooking</div>
+        <div class="desc">Exploring flavors and experimenting with recipes.</div>
+      </div>
+      <div class="h-cell">
+        <i data-lucide="plane"></i>
+        <div class="name">Traveling</div>
+        <div class="desc">New places, diverse cultures, wider horizons.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <h2>Let's build<br>something<span style="color: var(--accent)">.</span></h2>
+
+    <div class="grid">
+      <div class="item">
+        <div class="label">Email</div>
+        <a href="mailto:kamberisyart47@gmail.com">kamberisyart47@gmail.com <i data-lucide="arrow-up-right"></i></a>
+      </div>
+      <div class="item">
+        <div class="label">GitHub</div>
+        <a href="https://github.com/SyartK" target="_blank" rel="noopener">@SyartK <i data-lucide="arrow-up-right"></i></a>
+      </div>
+      <div class="item">
+        <div class="label">Twitter / X</div>
+        <a href="https://twitter.com/ItsSyart" target="_blank" rel="noopener">@ItsSyart <i data-lucide="arrow-up-right"></i></a>
+      </div>
+      <div class="item">
+        <div class="label">Instagram</div>
+        <a href="https://www.instagram.com/syartkamberi/" target="_blank" rel="noopener">@syartkamberi <i data-lucide="arrow-up-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div>© Syart Kamberi · 2026</div>
+    <div class="right">
+      <span>Built with HTML · CSS · JS</span>
+      <span>Preševo · UTC+1</span>
+    </div>
+  </footer>
+</main>
+
+<!-- Project filter -->
+<script>
+  (function() {
+    const filters = document.querySelectorAll('#filters .chip');
+    const cards = document.querySelectorAll('#proj-grid .proj');
+    filters.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.filter;
+        filters.forEach(b => b.classList.toggle('active', b === btn));
+        cards.forEach(c => {
+          const show = f === 'all' || c.dataset.cat === f;
+          c.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  })();
+  // init lucide
+  if (window.lucide) lucide.createIcons();
+</script>
+
+</body>
+</html>

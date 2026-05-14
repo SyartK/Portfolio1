@@ -1,0 +1,240 @@
+/* =========================================================================
+   Scorely — Colors & Type
+   Two directions share semantic vars; swap `data-theme="graphite"` on <html>
+   to flip from the default "ink" direction to the cool/technical one.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ---------- Base palette: INK (default, warm monochrome + amber) ---------- */
+  --ink-bg:          #F6F4EF;   /* page — warm off-white, paper */
+  --ink-surface:     #FFFFFF;   /* cards, elevated */
+  --ink-sunken:      #EEEAE1;   /* inset, code, subtle bg */
+  --ink-line:        #E2DDD1;   /* hairlines */
+  --ink-line-strong: #C9C2B1;   /* stronger borders, dividers */
+  --ink-muted:       #8A8373;   /* secondary text, meta */
+  --ink-body:        #3A362E;   /* body text */
+  --ink-fg:          #17140F;   /* primary text, near-black */
+  --ink-accent:      #E85B1A;   /* amber-orange — CTAs, scores, highlights */
+  --ink-accent-hi:   #FF7432;   /* hover */
+  --ink-accent-lo:   #C94A10;   /* press */
+  --ink-accent-wash: #FBE7D8;   /* tinted bg, selected states */
+
+  /* Semantic scores (audit-domain colors) */
+  --ink-good:    #2E7D4F;
+  --ink-warn:    #C28B14;
+  --ink-bad:     #C23A2A;
+  --ink-info:    #2E5AAC;
+
+  /* ---------- Typography scale ---------- */
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fs-xs:   11px;
+  --fs-sm:   13px;
+  --fs-base: 15px;
+  --fs-md:   17px;
+  --fs-lg:   20px;
+  --fs-xl:   26px;
+  --fs-2xl:  34px;
+  --fs-3xl:  46px;
+  --fs-4xl:  64px;
+  --fs-hero: 88px;
+
+  --lh-tight: 1.08;
+  --lh-snug:  1.2;
+  --lh-body:  1.5;
+  --lh-loose: 1.7;
+
+  --tr-tight:  -0.02em;
+  --tr-normal: -0.005em;
+  --tr-mono:    0.0em;
+  --tr-label:   0.08em;   /* for SMALL CAPS UI labels */
+
+  /* ---------- Spacing (4px base) ---------- */
+  --sp-0:  0;
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* ---------- Radii ---------- */
+  --r-none: 0;
+  --r-xs:   2px;
+  --r-sm:   4px;
+  --r-md:   6px;
+  --r-lg:   10px;
+  --r-xl:   14px;
+  --r-pill: 999px;
+
+  /* ---------- Shadows — restrained, 1px borders carry most weight ---------- */
+  --sh-hairline: 0 0 0 1px var(--line);
+  --sh-sm:  0 1px 0 rgba(23,20,15,0.04), 0 0 0 1px rgba(23,20,15,0.06);
+  --sh-md:  0 2px 4px rgba(23,20,15,0.04), 0 1px 0 rgba(23,20,15,0.03), 0 0 0 1px rgba(23,20,15,0.06);
+  --sh-lg:  0 12px 32px -8px rgba(23,20,15,0.12), 0 2px 4px rgba(23,20,15,0.04), 0 0 0 1px rgba(23,20,15,0.06);
+  --sh-focus: 0 0 0 3px color-mix(in oklab, var(--accent) 35%, transparent);
+
+  /* ---------- Motion ---------- */
+  --ease:       cubic-bezier(0.2, 0, 0, 1);
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:   120ms;
+  --dur-base:   200ms;
+  --dur-slow:   360ms;
+
+  /* ---------- Semantic mapping (default = ink) ---------- */
+  --bg:           var(--ink-bg);
+  --surface:      var(--ink-surface);
+  --sunken:       var(--ink-sunken);
+  --line:         var(--ink-line);
+  --line-strong: var(--ink-line-strong);
+  --fg:           var(--ink-fg);
+  --body:         var(--ink-body);
+  --muted:        var(--ink-muted);
+  --accent:       var(--ink-accent);
+  --accent-hi:    var(--ink-accent-hi);
+  --accent-lo:    var(--ink-accent-lo);
+  --accent-wash:  var(--ink-accent-wash);
+  --good:         var(--ink-good);
+  --warn:         var(--ink-warn);
+  --bad:          var(--ink-bad);
+  --info:         var(--ink-info);
+}
+
+/* =========================================================================
+   DIRECTION B — GRAPHITE (cool, technical, Vercel-adjacent)
+   ========================================================================= */
+[data-theme="graphite"] {
+  --graphite-bg:          #0B0C0E;
+  --graphite-surface:     #121418;
+  --graphite-sunken:      #08090B;
+  --graphite-line:        #1E2127;
+  --graphite-line-strong: #2A2E36;
+  --graphite-muted:       #7A8290;
+  --graphite-body:        #C4CBD6;
+  --graphite-fg:          #F4F6FA;
+  --graphite-accent:      #C6F24E;   /* electric lime */
+  --graphite-accent-hi:   #D7FF5C;
+  --graphite-accent-lo:   #A6CE3B;
+  --graphite-accent-wash: #1A2111;
+
+  --graphite-good: #6BE39B;
+  --graphite-warn: #F5C24D;
+  --graphite-bad:  #FF6E5C;
+  --graphite-info: #7AA8FF;
+
+  --bg:           var(--graphite-bg);
+  --surface:      var(--graphite-surface);
+  --sunken:       var(--graphite-sunken);
+  --line:         var(--graphite-line);
+  --line-strong: var(--graphite-line-strong);
+  --fg:           var(--graphite-fg);
+  --body:         var(--graphite-body);
+  --muted:        var(--graphite-muted);
+  --accent:       var(--graphite-accent);
+  --accent-hi:    var(--graphite-accent-hi);
+  --accent-lo:    var(--graphite-accent-lo);
+  --accent-wash:  var(--graphite-accent-wash);
+  --good:         var(--graphite-good);
+  --warn:         var(--graphite-warn);
+  --bad:          var(--graphite-bad);
+  --info:         var(--graphite-info);
+
+  --sh-sm:  0 1px 0 rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05);
+  --sh-md:  0 2px 6px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+  --sh-lg:  0 20px 50px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
+}
+
+/* =========================================================================
+   Base + semantic element styles
+   ========================================================================= */
+html, body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  letter-spacing: var(--tr-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--fg);
+  font-weight: 600;
+  letter-spacing: var(--tr-tight);
+  line-height: var(--lh-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--fs-3xl); font-weight: 700; }
+h2 { font-size: var(--fs-2xl); }
+h3 { font-size: var(--fs-xl); }
+h4 { font-size: var(--fs-lg); }
+h5 { font-size: var(--fs-md); }
+h6 { font-size: var(--fs-sm); font-weight: 600; text-transform: uppercase; letter-spacing: var(--tr-label); color: var(--muted); }
+
+p { margin: 0; text-wrap: pretty; }
+
+small, .meta {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+/* The signature "score" number treatment */
+.score, .numeric {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-feature-settings: "tnum", "zero";
+  letter-spacing: var(--tr-mono);
+}
+
+/* Small caps label — used liberally for section labels, nav, badges */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: var(--tr-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+code, kbd, pre, .code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+
+code, kbd {
+  background: var(--sunken);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 1px 6px;
+}
+
+a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color var(--dur-fast) var(--ease);
+}
+a:hover { text-decoration-color: var(--accent); }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: var(--sp-6) 0;
+}
+
+::selection { background: var(--accent); color: #fff; }
+[data-theme="graphite"] ::selection { background: var(--accent); color: #0B0C0E; }
